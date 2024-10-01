@@ -27,6 +27,10 @@ const App = () => {
 
   const deleteTask = async (id) => todos.delete(id);
 
+  const toggleStatus = async (id, e) => {
+    await todos.update(id, { completed: e.target.checked });
+  };
+
   return (
     <div className="container">
       <h3 className="teal-text center-align">Todo App</h3>
@@ -53,6 +57,7 @@ const App = () => {
                     type="checkbox"
                     checked={completed}
                     className="checkbox-blue"
+                    onChange={(e) => toggleStatus(id, e)}
                   />
                   <span className={`black-text ${completed && "strike-text"}`}>
                     {task}
