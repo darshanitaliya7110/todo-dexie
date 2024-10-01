@@ -12,7 +12,6 @@ const { todos } = db;
 
 const App = () => {
   const allItems = useLiveQuery(() => todos.toArray());
-  console.log(">>>>>>>", allItems);
 
   const addTask = async (e) => {
     e.preventDefault();
@@ -25,6 +24,8 @@ const App = () => {
 
     taskFeild["value"] = "";
   };
+
+  const deleteTask = async (id) => todos.delete(id);
 
   return (
     <div className="container">
@@ -53,10 +54,17 @@ const App = () => {
                     checked={completed}
                     className="checkbox-blue"
                   />
-                  <span className="black-tex strike-text">{task}</span>
+                  <span className={`black-text ${completed && "strike-text"}`}>
+                    {task}
+                  </span>
                 </label>
               </p>
-              <i className="col s2 material-icons delete-button">delete</i>
+              <i
+                onClick={() => deleteTask(id)}
+                className="col s2 material-icons delete-button"
+              >
+                delete
+              </i>
             </div>
           ))}
         </div>
